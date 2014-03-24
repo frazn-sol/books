@@ -1,0 +1,71 @@
+<%= form_for @book, :html => { :multipart => true } do |f| %>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% @book.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+
+  <div class="field">
+    <%= f.label :book %><br>
+    <%= f.file_field :book %>
+  </div>
+
+  <div class="field">
+    <%= f.label :image %><br>
+    <%= f.file_field :image %>
+  </div>
+  <div class="actions">
+    <%= f.submit%>
+  </div>
+<% end %>
+
+<style>
+#book_book{
+  opacity:1 !important;
+  position: relative;
+  width:210px;
+  color:black;
+}
+
+#book_image{
+  opacity:1 !important;
+  position: relative;
+  width:210px;
+  color:black;
+}
+
+label {
+    float: left;
+    width: 10%;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 24px;
+    padding-left: 290px;
+}
+
+.field{
+  margin-right: 250px;
+}
+input{
+
+}
+.actions{
+  margin-top: 40px;
+}
+</style>
