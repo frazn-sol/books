@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Image:</strong>
   <%if @book.image.present?%>
@@ -8,16 +6,26 @@
   		<%= image_tag "missing.png",:width=>"200", :height => "200" %>
   	<%end%>
 </p>
+</br>
 <p>
   <strong>Title:</strong>
   <%= @book.title %>
 </p>
+</br>
 <p>
   <strong>Description:</strong>
   <%= @book.description %>
 </p>
+</br>
 <p>
   <strong>Book Name:</strong>
   <%= @book.book_file_name %>
 </p>
 
+<style>
+  img{
+    height:150;
+    width:150px;
+    margin-left: 10px;
+  }
+</style>

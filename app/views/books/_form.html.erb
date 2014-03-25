@@ -13,22 +13,22 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, :required => true %>
   </div>
 
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, :required => true %>
   </div>
 
   <div class="field">
     <%= f.label :book %><br>
-    <%= f.file_field :book %>
+    <%= f.file_field :book, :required => true %>
   </div>
 
   <div class="field">
     <%= f.label :image %><br>
-    <%= f.file_field :image %>
+    <%= f.file_field :image, :required => true %>
   </div>
   <div class="actions">
     <%= f.submit%>
@@ -54,7 +54,6 @@ label {
     float: left;
     width: 10%;
     white-space: nowrap;
-    overflow: hidden;
     margin-top: 24px;
     padding-left: 290px;
 }

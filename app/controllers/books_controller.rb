@@ -29,7 +29,11 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        File.open("public"+@book.book.url(:original,false), "rb") do |io|
+          reader = PDF::Reader.new(io)
+          puts reader.info
+        end
+        format.html { redirect_to books_path, notice: 'Book was successfully created.' }
         format.json { render action: 'show', status: :created, location: @book }
       else
         format.html { render action: 'new' }
