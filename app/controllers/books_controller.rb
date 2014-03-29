@@ -81,11 +81,7 @@ class BooksController < ApplicationController
 
   def file_send
     @file = Rich.last
-    @doc = @file.doc
-    File.open("public"+@file.doc.url(:original,false), 'rb') do |file|
-      @content = file.read
-      render json: @content
-    end  
+    send_file "public"+@file.doc.url(:original,false), :type=>"application/pdf", :x_sendfile=>true 
   end
 
   private

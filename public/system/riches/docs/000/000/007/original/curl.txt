@@ -1,0 +1,51 @@
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X PUT -d '{"compaign_config": {"compaign_start_date":"24-03-2014", "target_limit":120}}'  http://localhost:3000/compaign_configs/1
+
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"activity":{"house_number":"1","total_children":"1","vaccinated_children":"100","latitude":"1","longitude":"1","start_time":"1:00","end_time":"2:00","town_id":"1","union_council_id":"1","visitor_id":"1","team_id":"1","area_name":"fraz","house_status_id":"1"}}'  http://localhost:3000/activities
+
+sudo modprobe -r wl && sudo modprobe brcmsmac
+
+
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"activity": {"total_children": 9,"union_council_id": 2,"house_status_id": 2,"imei": "123456789","image": "","vaccinated_children": 68,"town_id": 1,"house_number": "","end_time": "00:44","area_name": "hk","start_time": "00:44","longitude": "74.3191438","latitude": "31.531927","team_id": 6}}' http://localhost:3000/activities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Access Key ID:
+AKIAJ7CUCJG4P46Z22XQ
+Secret Access Key:
+SP6n+EHIOnwyjn50kT0ymbtOKuH1mIlSGTGEJ+Yd
+Bucket:
+plantprodline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
