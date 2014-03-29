@@ -1,0 +1,15 @@
+<%= form_for @rich, :url => pdf_save_books_path, :html => { :multipart => true } do |form| %>
+  <%= form.file_field :doc %>
+  <div class="actions">
+    <%= form.submit%>
+  </div>
+<% end %>
+
+<style>
+#rich_doc{
+  opacity:1 !important;
+  position: relative;
+  width:210px;
+  color:black;
+}
+</style>

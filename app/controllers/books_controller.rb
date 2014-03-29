@@ -29,10 +29,13 @@ class BooksController < ApplicationController
     @book.user_id = current_user.id
     respond_to do |format|
       if @book.save
-        File.open("public"+@book.book.url(:original,false), "rb") do |io|
-          reader = PDF::Reader.new(io)
-          puts reader.info
+        somefile = File.open(@book.book_file_name+".txt", "w")
+        reader = PDF::Reader.new("public"+@book.book.url(:original,false))
+          reader.pages.each do |page|
+          somefile.puts(page.text)
         end
+        @book.update_attribute(:text_file, somefile)
+        somefile.close
         format.html { redirect_to books_path, notice: 'Book was successfully created.' }
         format.json { render action: 'show', status: :created, location: @book }
       else
@@ -66,6 +69,25 @@ class BooksController < ApplicationController
     end
   end
 
+  def pdf
+    @rich = Rich.new
+  end
+
+  def pdf_save
+    @rich = Rich.new(rich_params)
+    @rich.save
+    redirect_to books_path
+  end
+
+  def file_send
+    @file = Rich.last
+    @doc = @file.doc
+    File.open("public"+@file.doc.url(:original,false), 'r') do |file|
+      @content = file.read
+      render json: @content
+    end  
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -74,6 +96,10 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:image, :title, :description, :book_text, :book, :user_id)
+      params.require(:book).permit(:text_file, :image, :title, :description, :book_text, :book, :user_id)
+    end
+
+    def rich_params
+      params.require(:rich).permit(:doc)
     end
 end

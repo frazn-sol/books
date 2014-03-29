@@ -1,5 +1,14 @@
 Books::Application.routes.draw do
-  resources :books
+  resources :books do
+    collection do
+      get :pdf
+      post :pdf_save
+      get :file_send
+    end
+
+    member do
+    end
+  end
 
   devise_for :users
   resources :users
