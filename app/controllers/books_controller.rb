@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter :authenticate_user!, only: [:file_send]
   # GET /books
   # GET /books.json
   def index
@@ -82,7 +82,7 @@ class BooksController < ApplicationController
   def file_send
     @file = Rich.last
     @doc = @file.doc
-    File.open("public"+@file.doc.url(:original,false), 'r') do |file|
+    File.open("public"+@file.doc.url(:original,false), 'rb') do |file|
       @content = file.read
       render json: @content
     end  
