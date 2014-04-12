@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412073654) do
+ActiveRecord::Schema.define(version: 20140412081619) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140412073654) do
     t.float    "latitude"
     t.float    "longitude"
     t.integer  "imei",       limit: 8
+    t.string   "time"
   end
 
   create_table "riches", force: true do |t|
