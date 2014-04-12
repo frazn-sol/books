@@ -1,7 +1,8 @@
 class BooksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authenticate_user!, only: [:file_send]
+  skip_before_filter :authenticate_user!, only: [:file_send, :save_feedback, :feedback]
+  skip_before_filter :verify_authenticity_token, only: [:save_feedback]
   # GET /books
   # GET /books.json
   def index
@@ -84,6 +85,25 @@ class BooksController < ApplicationController
     send_file "public"+@file.doc.url(:original,false), :type=>"application/pdf", :x_sendfile=>true 
   end
 
+  def save_feedback
+    @feedback = Feedback.new(feedback_params)
+    @msg = Hash.new()
+    if @feedback.save
+      @msg['status'] = "true"
+      @msg['message'] = "Successfully Saved"
+      @msg['status_code'] = "200"
+    else
+      @msg['status'] = "false"
+      @msg['message'] = "Unsuccessfully"
+      @msg['status_code'] = "300"
+    end
+    render json: @msg
+  end
+
+  def feedback
+    @feedback = Feedback.last
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
@@ -98,4 +118,8 @@ class BooksController < ApplicationController
     def rich_params
       params.require(:rich).permit(:doc)
     end
+
+    def feedback_params
+      params.require(:feedback).permit(:q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :latitude, :longitude, :imei)
+    end    
 end

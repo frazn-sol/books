@@ -4,6 +4,8 @@ Books::Application.routes.draw do
       get :pdf
       post :pdf_save
       get :file_send
+      get :feedback
+      post :save_feedback
     end
 
     member do

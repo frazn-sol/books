@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140329163923) do
+ActiveRecord::Schema.define(version: 20140412073654) do
 
   create_table "books", force: true do |t|
     t.string   "title"
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20140329163923) do
     t.string   "text_file_content_type"
     t.integer  "text_file_file_size"
     t.datetime "text_file_updated_at"
+  end
+
+  create_table "feedbacks", force: true do |t|
+    t.float    "q1"
+    t.float    "q2"
+    t.float    "q3"
+    t.float    "q4"
+    t.float    "q5"
+    t.float    "q6"
+    t.float    "q7"
+    t.float    "q8"
+    t.float    "q9"
+    t.float    "q10"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "imei",       limit: 8
   end
 
   create_table "riches", force: true do |t|
