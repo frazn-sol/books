@@ -120,6 +120,6 @@ class BooksController < ApplicationController
     end
 
     def feedback_params
-      params.require(:feedback).permit(:q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :latitude, :longitude, :imei)
+      params.require(:feedback).permit(:q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :latitude, :longitude, :imei, :time)
     end    
 end
