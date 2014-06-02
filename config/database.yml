@@ -37,5 +37,5 @@ production:
   database: Books_production
   pool: 5
   username: root
-  password:
+  password: nsol
   socket: /var/run/mysqld/mysqld.sock
