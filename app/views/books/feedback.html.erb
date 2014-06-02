@@ -5,7 +5,9 @@
 
 
 <div style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto" >
-  <%= image_tag @feedback.image.url, :width => "310px", :height => "400px" %>
+  <% if @feedback.image.url.present? %>
+    <%= image_tag @feedback.image.url, :width => "310px", :height => "400px" %>
+  <%end%>  
 </div>
 <script>
   $(function () {
@@ -91,42 +93,42 @@ $(function () {
             },
             series: [{
                 name: 'Question 1',
-                data: [49.9]
+                data: [<%= "#{@feedback.q1.to_f}"%>]
             }, {
                 name: 'Question 2',
-                data: [49.9]
+                data: [<%= "#{@feedback.q2.to_f}"%>]
     
             }, {
                 name: 'Question 3',
-                data: [49.9]
+                data: [<%= "#{@feedback.q3.to_f}"%>]
     
             }, {
                 name: 'Question 4',
-                data: [49.9]
+                data: [<%= "#{@feedback.q4.to_f}"%>]
     
             }, {
                 name: 'Question 5',
-                data: [49.9]
+                data: [<%= "#{@feedback.q5.to_f}"%>]
     
             }, {
                 name: 'Question 6',
-                data: [49.9]
+                data: [<%= "#{@feedback.q6.to_f}"%>]
     
             }, {
                 name: 'Question 7',
-                data: [49.9]
+                data: [<%= "#{@feedback.q7.to_f}"%>]
     
             }, {
                 name: 'Question 8',
-                data: [49.9]
+                data: [<%= "#{@feedback.q8.to_f}"%>]
     
             }, {
                 name: 'Question 9',
-                data: [49.9]
+                data: [<%= "#{@feedback.q9.to_f}"%>]
     
             }, {
                 name: 'Question 10',
-                data: [49.9]
+                data: [<%= "#{@feedback.q10.to_f}"%>]
     
             }]
         });
@@ -134,7 +136,7 @@ $(function () {
 var map;
 function initialize() {
   var pin = new google.maps.LatLng(<%= "#{@feedback.latitude.to_f}"%>,<%= "#{@feedback.longitude.to_f}"%>);
-  
+
   var myLatlng = new google.maps.LatLng(33.6667, 73.1667);
   var mapOptions = {
     zoom: 5,
