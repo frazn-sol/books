@@ -1,56 +1,154 @@
-<p>
-  <strong>Q1:</strong>
-  <%= @feedback.q1 %>
-</p>
-</br>
-<p>
-  <strong>Q2:</strong>
-  <%= @feedback.q2 %>
-</p>
-<p>
-  <strong>Q3:</strong>
-  <%= @feedback.q3 %>
-</p>
-<p>
-  <strong>Q4:</strong>
-  <%= @feedback.q4 %>
-</p>
-<p>
-  <strong>Q5:</strong>
-  <%= @feedback.q5 %>
-</p>
-<p>
-  <strong>Q6:</strong>
-  <%= @feedback.q6 %>
-</p>
-<p>
-  <strong>Q7:</strong>
-  <%= @feedback.q7 %>
-</p>
-<p>
-  <strong>Q8:</strong>
-  <%= @feedback.q8 %>
-</p>
-<p>
-  <strong>Q9:</strong>
-  <%= @feedback.q9 %>
-</p>
-<p>
-  <strong>Q10:</strong>
-  <%= @feedback.q10 %>
-</p>
 
-<p>
-  <strong>Lat:</strong>
-  <%= @feedback.latitude %>
-</p>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<div id="map-canvas" style="width:1000px; height:600px;"></div>
 
-<p>
-  <strong>Long:</strong>
-  <%= @feedback.longitude %>
-</p>
 
-<p>
-  <strong>Imei:</strong>
-  <%= @feedback.imei %>
-</p>
+<div style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto" >
+  <%= image_tag @feedback.image.url, :width => "310px", :height => "400px" %>
+</div>
+<script>
+  $(function () {
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: '<%= "#{Rich.last.doc_file_name.to_s}  Feeback Report"%>'
+        },
+        tooltip: {
+          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Questions distribution',
+            data: [
+                ['Question 1',   <%= "#{@feedback.q1.to_f}"%>],
+                ['Question 2',   <%= "#{@feedback.q2.to_f}"%>],
+                ['Question 3',   <%= "#{@feedback.q3.to_f}"%>],
+                ['Question 4',   <%= "#{@feedback.q4.to_f}"%>],
+                ['Question 5',   <%= "#{@feedback.q5.to_f}"%>],
+                ['Question 6',   <%= "#{@feedback.q6.to_f}"%>],
+                ['Question 7',   <%= "#{@feedback.q7.to_f}"%>],
+                ['Question 8',   <%= "#{@feedback.q8.to_f}"%>],
+                ['Question 9',   <%= "#{@feedback.q9.to_f}"%>],
+                ['Question 10',   <%= "#{@feedback.q10.to_f}"%>]
+            ]
+        }]
+    });
+});
+
+$(function () {
+        $('#container2').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Question Percentage'
+            },
+            subtitle: {
+                text: '%percentage of right answers'
+            },
+            xAxis: {
+                categories: [
+                    '<%= "#{Rich.last.doc_file_name.to_s}  Feeback Report"%>'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Right answers (%)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Question 1',
+                data: [49.9]
+            }, {
+                name: 'Question 2',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 3',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 4',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 5',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 6',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 7',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 8',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 9',
+                data: [49.9]
+    
+            }, {
+                name: 'Question 10',
+                data: [49.9]
+    
+            }]
+        });
+    });
+var map;
+function initialize() {
+  var pin = new google.maps.LatLng(<%= "#{@feedback.latitude.to_f}"%>,<%= "#{@feedback.longitude.to_f}"%>);
+  
+  var myLatlng = new google.maps.LatLng(33.6667, 73.1667);
+  var mapOptions = {
+    zoom: 5,
+    center: myLatlng
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+  var marker = new google.maps.Marker({
+    position: myLatlng,
+    title:"Visited Place"
+  });
+
+// To add the marker to the map, call setMap();
+marker.setMap(map);
+
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>

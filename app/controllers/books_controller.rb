@@ -86,7 +86,14 @@ class BooksController < ApplicationController
   end
 
   def save_feedback
+    if params[:feedback][:image].present?
+      sio = StringIO.new(Base64.decode64(params[:feedback][:image]))
+    else
+      sio = nil
+    end
+    params[:feedback].delete :image
     @feedback = Feedback.new(feedback_params)
+    @feedback.image = sio
     @msg = Hash.new()
     if @feedback.save
       @msg['status'] = "true"
@@ -120,6 +127,6 @@ class BooksController < ApplicationController
     end
 
     def feedback_params
-      params.require(:feedback).permit(:q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :latitude, :longitude, :imei, :time)
+      params.require(:feedback).permit(:q1, :q2, :q3, :q4, :q5, :q6, :q7, :q8, :q9, :q10, :latitude, :longitude, :imei, :image)
     end    
 end
